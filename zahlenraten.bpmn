@@ -12,9 +12,10 @@
         <bpmn:flowNodeRef>Activity_17xe2r7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0n5jfsl</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_02zrv06</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_1h04uck</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_00x3tf9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_01b4ahw</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1h04uck</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0h5nawz</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1" name="Start">
@@ -35,6 +36,7 @@
         </camunda:properties>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0p5rfjm</bpmn:incoming>
+      <bpmn:incoming>Flow_0z1trm1</bpmn:incoming>
       <bpmn:outgoing>Flow_0r7pflb</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0s6h1xf">
         <bpmn:extensionElements>
@@ -112,19 +114,16 @@ istZuHoch: zuHoch}</bpmn:script>
     <bpmn:sequenceFlow id="Flow_0s8noj0" sourceRef="Gateway_0n5jfsl" targetRef="Activity_00x3tf9">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">token.current.istGleich === false &amp;&amp; token.current.istZuHoch === false</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_1v2mb61" sourceRef="Activity_02zrv06" targetRef="Event_1h04uck" />
-    <bpmn:userTask id="Activity_02zrv06" name="Gratulation mein Freund!">
+    <bpmn:sequenceFlow id="Flow_1v2mb61" sourceRef="Activity_02zrv06" targetRef="Gateway_0h5nawz" />
+    <bpmn:userTask id="Activity_02zrv06" name="Gratulation mein Freund! Möchtest du noch eine Runde spielen?">
       <bpmn:extensionElements>
         <camunda:formData>
-          <camunda:formField id="FormField_vlqv4I9M" type="paragraph" defaultValue="Du hast die richtige Zahl erraten!!!" />
+          <camunda:formField id="Restart" type="confirm" defaultValue="Du hast die richtige Zahl erraten!!!" customForm="{&#34;confirmButtonText&#34;:&#34;Ja&#34;,&#34;declineButtonText&#34;:&#34;Nein&#34;}" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Gleich</bpmn:incoming>
       <bpmn:outgoing>Flow_1v2mb61</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:endEvent id="Event_1h04uck">
-      <bpmn:incoming>Flow_1v2mb61</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:userTask id="Activity_00x3tf9" name="Soryy...">
       <bpmn:extensionElements>
         <camunda:formData>
@@ -145,6 +144,20 @@ istZuHoch: zuHoch}</bpmn:script>
     </bpmn:userTask>
     <bpmn:dataObjectReference id="Guess" dataObjectRef="DataObject_04x3ko3" />
     <bpmn:dataObject id="DataObject_04x3ko3" />
+    <bpmn:endEvent id="Event_1h04uck">
+      <bpmn:incoming>Flow_1tfps9l</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="Gateway_0h5nawz">
+      <bpmn:incoming>Flow_1v2mb61</bpmn:incoming>
+      <bpmn:outgoing>Flow_1tfps9l</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0z1trm1</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1tfps9l" sourceRef="Gateway_0h5nawz" targetRef="Event_1h04uck">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">token.current.Restart === false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0z1trm1" sourceRef="Gateway_0h5nawz" targetRef="Activity_0faoi1m">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">token.current.Restart === true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1cidyxu">
@@ -155,9 +168,22 @@ istZuHoch: zuHoch}</bpmn:script>
       <bpmndi:BPMNShape id="Lane_1xzf0d3_di" bpmnElement="Lane_1xzf0d3" isHorizontal="true">
         <dc:Bounds x="35" y="4" width="1465" height="806" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0z1trm1_di" bpmnElement="Flow_0z1trm1">
+        <di:waypoint x="930" y="195" />
+        <di:waypoint x="930" y="710" />
+        <di:waypoint x="250" y="710" />
+        <di:waypoint x="250" y="210" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="550" y="666" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1tfps9l_di" bpmnElement="Flow_1tfps9l">
+        <di:waypoint x="955" y="170" />
+        <di:waypoint x="1072" y="170" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1v2mb61_di" bpmnElement="Flow_1v2mb61">
         <di:waypoint x="810" y="170" />
-        <di:waypoint x="912" y="170" />
+        <di:waypoint x="905" y="170" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0s8noj0_di" bpmnElement="Flow_0s8noj0">
         <di:waypoint x="650" y="195" />
@@ -225,9 +251,7 @@ istZuHoch: zuHoch}</bpmn:script>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1wn95tw_di" bpmnElement="Activity_02zrv06">
         <dc:Bounds x="710" y="130" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1h04uck_di" bpmnElement="Event_1h04uck">
-        <dc:Bounds x="912" y="152" width="36" height="36" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1vqjwiv" bpmnElement="Activity_00x3tf9">
         <dc:Bounds x="510" y="470" width="100" height="80" />
@@ -239,6 +263,12 @@ istZuHoch: zuHoch}</bpmn:script>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0pzk9bv_di" bpmnElement="Guess">
         <dc:Bounds x="382" y="255" width="36" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1h04uck_di" bpmnElement="Event_1h04uck">
+        <dc:Bounds x="1072" y="152" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0h5nawz_di" bpmnElement="Gateway_0h5nawz" isMarkerVisible="true">
+        <dc:Bounds x="905" y="145" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0s6h1xf_di" bpmnElement="DataOutputAssociation_0s6h1xf">
         <di:waypoint x="251" y="130" />
