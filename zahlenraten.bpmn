@@ -124,7 +124,7 @@ istZuHoch: zuHoch}</bpmn:script>
       <bpmn:incoming>Gleich</bpmn:incoming>
       <bpmn:outgoing>Flow_1v2mb61</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_00x3tf9" name="Soryy...">
+    <bpmn:userTask id="Activity_00x3tf9" name="Sorry...">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="FormField_tDPm5Y2u" type="paragraph" defaultValue="Dein Versuch war leider zu niedrig!" />
@@ -133,7 +133,7 @@ istZuHoch: zuHoch}</bpmn:script>
       <bpmn:incoming>Flow_0s8noj0</bpmn:incoming>
       <bpmn:outgoing>Flow_1ity20u</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Activity_01b4ahw" name="Soryy...">
+    <bpmn:userTask id="Activity_01b4ahw" name="Sorry...">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="FormField_tDPm5Y2u" type="paragraph" defaultValue="Dein Versuch war leider zu hoch!" customForm="{&#34;confirmButtonText&#34;:&#34;Hoch&#34;}" />
